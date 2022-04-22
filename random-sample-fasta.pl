@@ -56,68 +56,6 @@ while (<$INFILE>) {
 close($INFILE) or die("Cannot close file : $!");
 
 if ( ( $count < $options{n} ) && ( !$options{with_replacement} ) ) {
-[acobian@edwards-data bin]$
-[acobian@edwards-data bin]$
-[acobian@edwards-data bin]$
-[acobian@edwards-data bin]$ more random-sample-fasta.pl
-#FILE: random_sequence_sample.pl
-#AUTH: Paul Stothard (paul.stothard@gmail.com)
-#DATE: May 20, 2008
-#VERS: 1.0
-
-#USAGE: perl random-sample-fasta.pl [-arguments]
-# -i [FILE]     : file containing sequences in FASTA format (Required).
-# -o [FILE]     : output file (Required).
-# -n [INTEGER]  : number of sequences to obtain (Required).
-# -r            : sample with replacement (Optional. Default is to
-#                 sample without replacement).
-#
-#perl random_sequence_sample.pl -i test/sample_in.fasta -o test/sample_out.fasta -n 10
-
-
-
-
-use warnings;
-use strict;
-use Data::Dumper;
-use Getopt::Long;
-
-my %options = (
-    infile          => undef,
-    outfile         => undef,
-    n               => undef,
-    with_replacment => undef
-);
-
-GetOptions(
-    'i=s' => \$options{infile},
-    'o=s' => \$options{outfile},
-    'n=i' => \$options{n},
-    'r'   => \$options{with_replacement}
-);
-
-$options{n} = get_integer( $options{n} );
-
-if (   !( defined( $options{infile} ) )
-    or !( defined( $options{outfile} ) )
-    or !( defined( $options{n} ) ) )
-{
-    die( print_usage() . "\n" );
-}
-
-open( my $INFILE, $options{infile} )
-    or die("Cannot open file '$options{infile}': $!");
-
-#Determine how many sequences are in the input file
-my $count = 0;
-while (<$INFILE>) {
-    if ( $_ =~ m/^>/ ) {
-        $count++;
-    }
-}
-close($INFILE) or die("Cannot close file : $!");
-
-if ( ( $count < $options{n} ) && ( !$options{with_replacement} ) ) {
     die("$options{infile} contains less than $options{n} sequences--unable to obtain sample without replacement."
     );
 }
